@@ -1,5 +1,8 @@
 {
   "files": ["global.d.ts"],
+  "exclude": [
+    "src/**/__tests__/*"
+  ],
   "include": [
     "env.d.ts",
     "src/**/*",
@@ -15,6 +18,7 @@
   ],
   "compilerOptions": {
     "module": "ESNext",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "declaration": false
   }
 }

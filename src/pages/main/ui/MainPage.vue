@@ -15,7 +15,12 @@ onBeforeUnmount(() => {
     tg.offEvent("invoiceClosed", handlePayment);
 });
 
-const handlePayment = async ({ status }) => {
+const handlePayment = async ({
+    status,
+}: {
+    url: string;
+    status: "paid" | "cancelled" | "failed" | "pending";
+}) => {
     if (status === "paid") {
         try {
             await axios.post(`${import.meta.env.VITE_BACKEND_URL}/notification`, {
