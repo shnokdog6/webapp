@@ -16,8 +16,8 @@ onBeforeUnmount(() => {
 });
 
 const handlePayment = async ({
-    status,
-}: {
+                                 status,
+                             }: {
     url: string;
     status: "paid" | "cancelled" | "failed" | "pending";
 }) => {
@@ -26,6 +26,10 @@ const handlePayment = async ({
             await axios.post(`${import.meta.env.VITE_BACKEND_URL}/notification`, {
                 name: name.value,
                 sum: sum.value,
+            }, {
+                headers: {
+                    "ngrok-skip-browser-warning": 13,
+                },
             });
         } catch (e) {
             tg.showAlert("Не удалось отправить донат");
@@ -39,11 +43,16 @@ async function makePayment() {
 
     try {
         const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/invoice`, {
+            headers: {
+                "ngrok-skip-browser-warning": 13,
+            },
             params: {
                 amount: sum.value,
             },
         });
-        tg.openInvoice(data.link, () => {});
+        console.log(data);
+        tg.openInvoice(data.link, () => {
+        });
     } catch (e) {
         tg.showAlert("Не удалось провести оплату");
     }
